@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.Entity;
 import spring.boot.defasio.nubank.dto.ClientesDTO;
 import spring.boot.defasio.nubank.dto.ClientesResponseDTO;
 import spring.boot.defasio.nubank.dto.ContatoResponseDTO;
@@ -44,8 +43,14 @@ public class ClientesService {
 
     public List<ContatoResponseDTO> listarContatosPorCliente(Long clienteId) {
     Clientes cliente = clientesRepository.findById(clienteId)
-        .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
-
+                        .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+        return cliente.getContatos().stream().map(c -> {
+            ContatoResponseDTO dto = new ContatoResponseDTO();
+            dto.setId(c.getId());
+            dto.setTelefone(c.getTelefone());
+            dto.setEmail(c.getEmail());
+            return dto;
+        }).collect(Collectors.toList());
     }
 
     private ClientesResponseDTO toDTO(Clientes cliente){

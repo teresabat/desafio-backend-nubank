@@ -1,0 +1,17 @@
+### Insere um cliente
+POST http://localhost:8080/clientes
+Content-Type: application/json
+
+{
+    "nome" : "Mateus",
+    "contatos" : [
+        {
+            "telefone" : "21996207171",
+            "email" : "contatotommymateus@gmail.com"
+        },
+        {
+            "telefone" : "21973692572",
+            "email" : "mateuscoutinhocarneiro@gmail.com"
+        }
+    ]
+}
